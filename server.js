@@ -72,30 +72,27 @@ router.post('/signin', function (req, res) {
     }
 });
 
-router.route('/testcollection')
-    .delete(authController.isAuthenticated, function(req, res) {
-            console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
-            }
-            const o = getJSONObjectForMovieRequirement(req);
-            res.json(o);
-        }
-    )
-    .put(authJwtController.isAuthenticated, function(req, res) {
-            console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
-            }
-            const o = getJSONObjectForMovieRequirement(req);
-            res.json(o);
-        }
-    );
-//==============================================movies=============================================================
-
 router.route('/movies')
+    .get(authController.isAuthenticated, function(req, res) {
+            console.log(req.body);
+            res = res.status(200).send({ msg: 'GET movies.'});
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            const o = getJSONObjectForMovieRequirement(req);
+            res.json(o);
+        }
+    )
+    .post(authController.isAuthenticated, function(req, res) {
+            console.log(req.body);
+            res = res.status(200).send({ msg: 'movies saved.'});
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            const o = getJSONObjectForMovieRequirement(req);
+            res.json(o);
+        }
+    )
     .delete(authController.isAuthenticated, function(req, res) {
             console.log(req.body);
             res = res.status(200);
@@ -116,7 +113,7 @@ router.route('/movies')
             res.json(o);
         }
     );
-//===========================================================================================================================================
+
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
 module.exports = app; // for testing only

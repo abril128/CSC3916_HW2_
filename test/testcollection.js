@@ -31,7 +31,7 @@ describe('Register, Login and Call Test Collection with Basic Auth and JWT Auth'
             chai.request(server)
                 .post('/signup')
                 .send(login_details)
-                .end((err, res) =>{
+                .end((err, res) => {
                     res.should.have.status(200);
                     res.body.success.should.be.eql(true);
                     //follow-up to get the JWT token
@@ -58,7 +58,6 @@ describe('Register, Login and Call Test Collection with Basic Auth and JWT Auth'
                 })
         })
     });
-
     describe('/testcollection fail auth', () => {
         it('delete requires basic auth failed login', (done) => {
             chai.request(server)
